@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Stocks</title>
+    <!-- Link to CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/view_stocks.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Current Stocks</h1>
+        <form method="POST" action="{{ url_for('auth.view_stocks') }}">
+          <input
+            type="text"
+            name="search_query"
+            placeholder="Search for a medicine..."
+            value="{{ search_query or '' }}"
+          />
+          <button type="submit">Search</button>
+        </form>
+        <a href="{{ url_for('auth.admin_dashboard') }}" class="back-btn">Back to Dashboard</a>
+      </header>
+      <main class="medicine-grid">
+        {% if medicines %} {% for medicine in medicines %}
+        <div class="medicine-card">
+          <img
+            src="{{ url_for('static', filename=medicine[3].replace('static/', '')) if medicine[3] else url_for('static', filename='images/default_medicine.jpg') }}"
+            alt="{{ medicine[1] }}"
+          />
+          <div class="medicine-info">
+            <h2>{{ medicine[1] }}</h2>
+            <p>{{ medicine[2] }}</p>
+            <p><strong>Price:</strong> ₹{{ medicine[4] }}</p>
+            <p><strong>Availability:</strong> {{ medicine[5] }}</p>
+          </div>
+        </div>
+        {% endfor %} {% else %}
+        <p>No medicines found.</p>
+        {% endif %}
+      </main>
+      <footer></footer>
+    </div>
+    <!-- Link to JS -->
+    <script src="{{ url_for('static', filename='js/view_stocks.js') }}"></script>
+  </body>
+</html>

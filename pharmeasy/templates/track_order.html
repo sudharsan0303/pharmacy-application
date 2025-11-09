@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Track Orders</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/track_order.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <h1>Your Orders</h1>
+      </header>
+      {% if orders %}
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Medicine Name</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+            <th>Order Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders %}
+          <tr>
+            <td>{{ order[0] }}</td>
+            <td>{{ order[1] }}</td>
+            <td>{{ order[2] }}</td>
+            <td>₹{{ order[3] }}</td>
+            <td>{{ order[4] }}</td>
+            <td>{{ order[5] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>You have no orders.</p>
+      {% endif %}
+      <footer>
+        <a href="{{ url_for('auth.user_dashboard') }}" class="back-btn"
+          >Back to Dashboard</a
+        >
+      </footer>
+    </div>
+  </body>
+</html>

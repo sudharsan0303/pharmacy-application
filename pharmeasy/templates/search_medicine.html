@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Medicines</title>
+    <!-- Link to CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/search_medicine.css') }}"
+    />
+  </head>
+  <body>
+
+    <header class="header">
+      <h1 style="color: white;">Search Medicines</h1>
+      <div>
+        <a href="{{ url_for('auth.user_dashboard') }}" class="back-btn" style="margin-right: 25px;">User Dashboard</a>
+        <a href="{{ url_for('auth.cart') }}" class="back-btn">Cart</a>
+      </div>
+    </header>
+
+    <div class="container">
+      <section style="margin-bottom: 2rem;">
+        <form method="POST" action="{{ url_for('auth.search_medicine') }}" style="display: flex; justify-content: center; gap: 1rem;">
+          <input
+            type="text"
+            name="search_query"
+            placeholder="Search for a medicine..."
+            value="{{ search_query or '' }}"
+            style="flex: 1; max-width: 400px;"
+          />
+          <button type="submit">Search</button>
+        </form>
+      </section>
+      <main class="medicine-grid">
+        {% if medicines %} {% for medicine in medicines %}
+        <div class="medicine-card">
+          <img
+            src="{{ url_for('static', filename=medicine[3].replace('static/', '')) if medicine[3] else url_for('static', filename='images/default_medicine.jpg') }}"
+            alt="{{ medicine[1] }}"
+          />
+          <div class="medicine-info">
+            <h2>{{ medicine[1] }}</h2>
+            <p>{{ medicine[2] }}</p>
+            <p><strong>Price:</strong> ₹{{ medicine[4] }}</p>
+            <p><strong>Availability:</strong> {{ medicine[5] }}</p>
+            <form method="POST" action="{{ url_for('auth.add_to_cart') }}">
+              <input
+                type="hidden"
+                name="medicine_id"
+                value="{{ medicine[0] }}"
+              />
+              <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+            </form>
+          </div>
+        </div>
+        {% endfor %} {% else %}
+        <p>No medicines found.</p>
+        {% endif %}
+      </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/search_medicine.js') }}"></script>
+  </body>
+</html>

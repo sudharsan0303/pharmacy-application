@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard</title>
+
+    <!-- Custom CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/user_dashboard.css') }}"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <h1>User Dashboard</h1>
+      <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+    </header>
+
+    <main class="dashboard">
+      <div class="card">
+        <h2>Search Medicine</h2>
+        <p>Find medicines and check their availability.</p>
+        <a href="/user/search-medicine" class="btn">Search Medicine</a>
+      </div>
+      <div class="card">
+        <h2>Upload Prescription</h2>
+        <p>Upload your prescription or tablet image for assistance.</p>
+        <a href="http://localhost:8501" class="btn">Upload Prescription</a>
+      </div>
+      <div class="card">
+        <h2>Track Order</h2>
+        <p>Track the status of your orders in real-time.</p>
+        <a href="/track-order" class="btn">Track Order</a>
+      </div>
+    </main>
+
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/user_dashboard.js') }}"></script>
+  </body>
+</html>

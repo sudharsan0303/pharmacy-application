@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Stock</title>
+
+    <!-- Custom CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/update_stock.css') }}"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <h1>Update Stock</h1>
+      <a href="{{ url_for('auth.admin_dashboard') }}" class="back-btn"
+        >Back to Dashboard</a
+      >
+    </header>
+
+    <main class="form-container">
+      <form
+        action="/admin/update-stock"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="form-group">
+          <label for="name">Medicine Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter medicine name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            placeholder="Enter medicine description"
+            required
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="picture">Medicine Picture</label>
+          <input type="file" id="picture" name="picture" accept="image/*" />
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            placeholder="Enter price"
+            step="0.01"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="availability">Availability</label>
+          <select id="availability" name="availability" required>
+            <option value="YES">Yes</option>
+            <option value="NO">No</option>
+          </select>
+        </div>
+        <button type="submit" class="btn">Update Stock</button>
+      </form>
+    </main>
+
+    <!-- Custom JS -->
+    <script>
+      // Check if a success message is passed from the backend
+      const successMessage = "{{ success_message }}";
+      if (successMessage) {
+        alert(successMessage); // Display the success message as a popup
+      }
+    </script>
+  </body>
+</html>

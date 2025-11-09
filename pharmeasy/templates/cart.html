@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/cart.css') }}"
+    />
+    <script>
+      function showSuccessPopup() {
+        alert("Order placed successfully!");
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Your Cart</h1>
+      </header>
+      <main class="medicine-grid">
+        {% if medicines %}
+        <form
+          id="cart-form"
+          method="POST"
+          action="/cart"
+          onsubmit="showSuccessPopup()"
+        >
+          {% for medicine in medicines %}
+          <div class="medicine-card">
+            <img
+              src="{{ url_for('static', filename=medicine[3].replace('static/', '')) if medicine[3] else url_for('static', filename='images/default_medicine.jpg') }}"
+              alt="{{ medicine[1] }}"
+            />
+            <div class="medicine-info">
+              <h2>{{ medicine[1] }}</h2>
+              <p>{{ medicine[2] }}</p>
+              <p><strong>Price:</strong> ₹{{ medicine[4] }}</p>
+              <p><strong>Availability:</strong> {{ medicine[5] }}</p>
+              <label>
+                Quantity:
+                <input
+                  type="number"
+                  name="quantity_{{ medicine[0] }}"
+                  value="1"
+                  min="1"
+                  max="99"
+                  style="width: 60px"
+                />
+              </label>
+            </div>
+          </div>
+          {% endfor %}
+        </form>
+        <!-- Now, render each delete button form INSIDE its medicine card, but OUTSIDE the main form -->
+        {% for medicine in medicines %}
+        <div class="medicine-card-delete-btn" style="margin-top:-2.5rem; margin-bottom:1.5rem; text-align:right;">
+          <form
+            method="POST"
+            action="{{ url_for('auth.remove_from_cart') }}"
+            style="display: inline"
+          >
+            <input type="hidden" name="medicine_id" value="{{ medicine[0] }}" />
+            <button type="submit" class="delete-btn">Delete</button>
+          </form>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>Your cart is empty.</p>
+        {% endif %}
+      </main>
+      <footer>
+        <a href="{{ url_for('auth.search_medicine') }}" class="back-btn"
+          >Continue Shopping</a
+        >
+        {% if medicines %}
+        <button type="submit" form="cart-form" class="buy-btn">Buy Now</button>
+        {% endif %}
+      </footer>
+    </div>
+  </body>
+</html>

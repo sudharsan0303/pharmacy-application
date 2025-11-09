@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Orders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/view_orders.css') }}">
+    <script>
+        function showMessage(message, type) {
+            const messageBox = document.getElementById('message-box');
+            messageBox.innerText = message;
+            messageBox.className = type === 'success' ? 'message success' : 'message error';
+            messageBox.style.display = 'block';
+
+            // Hide the message after 3 seconds
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Back to Dashboard Button -->
+    <div class="back-to-dashboard">
+        <a href="{{ url_for('auth.admin_dashboard') }}" class="back-btn">Back to Dashboard</a>
+    </div>
+
+    <h1>View and Update Orders</h1>
+
+    <!-- Inline Message Box -->
+    <div id="message-box" class="message" style="display: none;"></div>
+
+    <!-- Orders Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer Name</th>
+                <th>Phone</th>
+                <th>Medicine Name</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order[0] }}</td>
+                <td>{{ order[1] }}</td> <!-- Full Name -->
+                <td>{{ order[2] }}</td> <!-- Phone -->
+                <td>{{ order[3] }}</td> <!-- Medicine Name -->
+                <td>{{ order[4] }}</td>
+                <td>₹{{ order[5] }}</td>
+                <td>{{ order[6] }}</td>
+                <td>{{ order[7] }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('auth.view_orders') }}">
+                        <input type="hidden" name="order_id" value="{{ order[0] }}">
+                        <select name="status">
+                            <option value="Pending" {% if order[7] == 'Pending' %}selected{% endif %}>Pending</option>
+                            <option value="Delivered" {% if order[7] == 'Delivered' %}selected{% endif %}>Delivered</option>
+                        </select>
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us - PharmaEasy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <style>
+      .contact-container { max-width: 500px; margin: 40px auto; background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);}
+      .contact-container h2 { margin-bottom: 1rem; }
+      .contact-container label { display: block; margin-top: 1rem; }
+      .contact-container input, .contact-container textarea { width: 100%; padding: 0.5rem; margin-top: 0.25rem; border-radius: 4px; border: 1px solid #ccc;}
+      .contact-container button { margin-top: 1rem; background: #16a34a; color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 4px; cursor: pointer;}
+      .contact-container button:hover { background: #15803d; }
+      .contact-details { margin-top: 2rem; font-size: 0.95rem; color: #333;}
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <h2>Contact Us</h2>
+        <form method="POST">
+            <label for="name">Your Name</label>
+            <input type="text" name="name" id="name" required>
+
+            <label for="email">Your Email</label>
+            <input type="email" name="email" id="email" required>
+
+            <label for="message">Message</label>
+            <textarea name="message" id="message" rows="5" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+        <div class="contact-details">
+            <h3>PharmaEasy Customer Support</h3>
+            <p>Email: support@pharmaeasy.com</p>
+            <p>Phone: +91 98765 43210</p>
+            <p>Address: 123 Health Street, Wellness City, India</p>
+            <p>Working Hours: Mon - Sat, 9:00 AM - 7:00 PM</p>
+        </div>
+        <div style="margin-top:1rem;">
+            <a href="/">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

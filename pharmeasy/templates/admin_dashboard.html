@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+
+    <!-- Custom CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin_dashboard.css') }}"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <h1>Admin Dashboard</h1>
+      <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+    </header>
+
+    <main class="dashboard">
+      <div class="card">
+        <h2>View Stocks</h2>
+        <p>View the list of all medicines in stock.</p>
+        <a href="/admin/view_stocks" class="btn">Go to View Stocks</a>
+      </div>
+      <div class="card">
+        <h2>Update Stock</h2>
+        <p>Manage and update the stock of medicines.</p>
+        <a href="/admin/update-stock" class="btn">Go to Update Stock</a>
+      </div>
+      <div class="card">
+        <h2>View Orders</h2>
+        <p>View and manage customer orders.</p>
+        <a href="/view-orders" class="btn">Go to View Orders</a>
+      </div>
+    </main>
+
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/admin_dashboard.js') }}"></script>
+  </body>
+</html>
